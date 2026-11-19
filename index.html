@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>슈투트가르트 모터스 - 포르쉐 온라인 쇼룸</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&family=Noto+Serif+KR:wght@600;800&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#0a1f44;--navy2:#102a5c;--royal:#2457e6;--gold:#f0b429;--bg:#f4f6fb;--tx:#16213a}
+*{box-sizing:border-box;margin:0}
+body{font:17px/1.6 'Noto Sans KR',system-ui,sans-serif;background:var(--bg);color:var(--tx)}
+h1,h2,h3{font-family:'Noto Serif KR',serif;line-height:1.3}
+button{font:inherit;cursor:pointer;border:0;border-radius:8px;padding:8px 14px}
+button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+header{position:sticky;top:0;z-index:20;background:var(--navy);color:#fff;display:flex;align-items:center;gap:20px;padding:12px 4%;flex-wrap:wrap}
+.logo{font:800 1.3rem 'Noto Serif KR',serif;color:#fff;text-decoration:none}.logo span{color:var(--gold)}
+nav{display:flex;gap:18px;flex:1}nav a,#acct a{color:#cfd9f5;text-decoration:none}
+#acct{display:flex;gap:8px;align-items:center}
+.btn{background:var(--royal);color:#fff}.gold{background:var(--gold);color:#1a1a1a;font-weight:700}.ghost{background:transparent;color:#fff;border:1px solid #5d78c9}
+.chip{background:var(--gold);color:#1a1a1a;border-radius:99px;padding:1px 10px;font-size:.8rem;font-weight:700}
+.hero{position:relative;height:min(62vh,480px);background:var(--navy);overflow:hidden}
+.slide{position:absolute;inset:0;opacity:0;transition:opacity 1s}.slide.on{opacity:1}
+.slide img{width:100%;height:100%;object-fit:cover}
+.cap{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;padding:0 8%;color:#fff;background:linear-gradient(90deg,rgba(10,31,68,.88),transparent 70%)}
+.cap h1{font-size:clamp(1.7rem,4.4vw,3rem);max-width:12em}.cap p{margin-top:10px;max-width:24em;color:#dbe4ff}.cap button{align-self:flex-start;margin-top:18px}
+#dots{position:absolute;bottom:14px;left:50%;transform:translateX(-50%);display:flex;gap:8px}
+#dots i{width:11px;height:11px;border-radius:50%;background:#fff6;cursor:pointer}#dots i.on{background:var(--gold)}
+section{padding:52px 4%;max-width:1200px;margin:auto}
+.t{font-size:1.7rem;color:var(--navy);margin-bottom:6px}.sub{color:#556;margin-bottom:22px}
+.tiers{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:14px}
+.tier{background:linear-gradient(160deg,var(--navy),var(--navy2));color:#fff;border-radius:14px;padding:20px}
+.tier b{color:var(--gold);font:800 2rem 'Noto Serif KR',serif}.tier small{color:#aab9e6}
+.tabs{display:flex;gap:8px;margin-bottom:18px;flex-wrap:wrap}.tabs button{background:#dfe6fa;color:var(--navy)}.tabs .on{background:var(--royal);color:#fff}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:20px}
+.card{background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 2px 10px #0a1f4422}
+.card img{width:100%;display:block}
+.info{padding:14px 16px 18px}.info small{color:#667}.info h3{font-size:1.1rem;margin:2px 0 4px}.pr{color:var(--royal);font-weight:800;font-size:1.1rem;margin:6px 0 10px}
+.modal{position:fixed;inset:0;background:#000a;display:none;align-items:center;justify-content:center;z-index:50;padding:14px}.modal.on{display:flex}
+.box{background:#fff;border-radius:16px;padding:26px;width:min(560px,100%);max-height:90vh;overflow:auto;position:relative}
+.box h2{margin-bottom:8px;color:var(--navy)}
+.box input:not([type=radio],[type=checkbox]){width:100%;padding:10px;margin:6px 0;border:1px solid #c4cdea;border-radius:8px;font:inherit}
+.box label{display:block;margin:6px 0}
+.box select{width:100%;padding:10px;border-radius:8px;border:1px solid #c4cdea;font:inherit;margin-top:4px}
+.x{position:absolute;right:10px;top:8px;background:none;font-size:1.2rem;z-index:2;color:#fff;text-shadow:0 0 4px #000}
+.row{display:flex;justify-content:space-between;gap:10px;align-items:center;padding:9px 0;border-bottom:1px solid #e6eaf7}
+.full{width:100%;margin-top:12px;padding:12px}.sm{font-size:.85rem;color:#667;margin-top:8px}
+#toast{position:fixed;bottom:24px;left:50%;transform:translate(-50%,90px);background:var(--navy);color:#fff;padding:12px 22px;border-radius:99px;transition:.3s;z-index:99}#toast.on{transform:translate(-50%,0)}
+footer{background:var(--navy);color:#9fb0e0;text-align:center;padding:26px 4%;font-size:.85rem}
+@media(prefers-reduced-motion:reduce){.slide,#toast{transition:none}}
+</style></head><body>
+<header>
+<a class="logo" href="#top">슈투트가르트 <span>모터스</span></a>
+<nav><a href="#shop">차량</a><a href="#benefit">회원 혜택</a><a href="#garage">내 차고</a></nav>
+<div id="acct"></div>
+</header>
+
+<div class="hero" id="top">
+<div class="slide"><img src="img/hero1.svg" alt="밤의 도로를 달리는 911 쿠페"><div class="cap"><h1>밤을 가르는 911</h1><p>카레라부터 터보 S까지, 계약금만 결제하면 예약이 끝나요.</p><button class="gold" onclick="location.hash='shop'">차량 보러 가기</button></div></div>
+<div class="slide"><img src="img/hero2.svg" alt="노을 속의 SUV"><div class="cap"><h1>가족과 함께 달리는 카이엔, 마칸</h1><p>넉넉한 공간에 스포츠카의 주행감을 더했어요.</p><button class="gold" onclick="location.hash='shop'">차량 보러 가기</button></div></div>
+<div class="slide"><img src="img/hero3.svg" alt="전기 스포츠 세단"><div class="cap"><h1>조용하고 빠른 전기 세단 타이칸</h1><p>파나메라와 타이칸으로 세단의 기준을 만나보세요.</p><button class="gold" onclick="location.hash='shop'">차량 보러 가기</button></div></div>
+<div class="slide"><img src="img/hero4.svg" alt="서킷 위의 스포츠카"><div class="cap"><h1>가입하면 100,000P 바로 지급</h1><p>등급이 오를수록 적립률이 올라가요.</p><button class="gold" onclick="auth('up')">무료 회원가입</button></div></div>
+<div id="dots"></div>
+</div>
+
+<section id="benefit"><h2 class="t">등급별 포인트 적립</h2><p class="sub">누적 결제액에 따라 등급이 자동으로 올라가고, 계약금을 결제할 때마다 적립률만큼 포인트가 쌓여요. 포인트는 1P당 1원으로 계약금 결제에 쓸 수 있어요.</p><div class="tiers" id="tiers"></div></section>
+
+<section id="shop"><h2 class="t">전시 차량</h2><p class="sub">표시된 가격은 예시 가격이에요. 계약금(차량 총액의 10%)만 온라인으로 결제하면 전자 계약서가 바로 발급돼요.</p>
+<div class="tabs"><button class="on" onclick="flt='all';render(this)">전체</button><button onclick="flt='sp';render(this)">스포츠카</button><button onclick="flt='suv';render(this)">SUV</button><button onclick="flt='sd';render(this)">세단</button></div>
+<div class="grid" id="grid"></div></section>
+
+<section id="garage"><h2 class="t">내 차고</h2><p class="sub">계약한 차량과 전자 계약서를 바로 확인할 수 있어요.</p><div class="grid" id="garageList"></div></section>
+
+<footer>이 사이트는 데모예요. 가격은 예시이고 실제 결제는 이루어지지 않아요. 실제 판매가와 재고는 공식 딜러에 확인해 주세요.<br>Porsche는 Dr. Ing. h.c. F. Porsche AG의 상표이며, 이 사이트는 비공식 데모예요.</footer>
+<div class="modal" id="modal"><div class="box" id="mbox"></div></div><div id="toast"></div>
+
+<script>
+const $=s=>document.querySelector(s);
+const L=(k,d)=>{try{return JSON.parse(localStorage.getItem(k))??d}catch(e){return d}};
+const S=(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}};
+const C=[
+{id:1,n:'718 카이맨',k:'sp',p:99000000,d:'가볍고 민첩한 미드십 쿠페'},
+{id:2,n:'911 카레라',k:'sp',p:189000000,d:'60년 넘게 이어온 아이콘'},
+{id:3,n:'911 GT3',k:'sp',p:270000000,d:'서킷 감성을 담은 스포츠카'},
+{id:4,n:'911 터보 S',k:'sp',p:350000000,d:'일상에서 쓰는 최고 성능 쿠페'},
+{id:5,n:'마칸 일렉트릭',k:'suv',p:109000000,d:'컴팩트 SUV의 전기차 버전'},
+{id:6,n:'카이엔',k:'suv',p:135000000,d:'넉넉한 공간과 스포츠카 주행감'},
+{id:7,n:'파나메라',k:'sd',p:145000000,d:'네 개의 문을 가진 그란 투리스모'},
+{id:8,n:'타이칸',k:'sd',p:138000000,d:'순수 전기 스포츠 세단'}];
+const KN={sp:'스포츠카',suv:'SUV',sd:'세단'};
+const COL=['제트 블랙','캐러라 화이트','GT 실버','마이애미 블루'];
+const O=[{n:'스포츠 크로노 패키지',p:4200000},{n:'파노라마 루프',p:3500000},{n:'20인치 휠 업그레이드',p:5800000}];
+const G=[{n:'일반',m:0,r:1},{n:'실버',m:10000000,r:2},{n:'골드',m:30000000,r:3},{n:'플래티넘',m:60000000,r:5}];
+const DP=0.1;
+let users=L('users',{}),me=L('me',null),flt='all',use=0,cur={};
+const U=()=>users[me],gr=u=>G.filter(g=>u.spent>=g.m).pop(),cv=id=>C.find(x=>x.id==id);
+const won=n=>{n=Math.round(n);const e=Math.floor(n/1e8),m=Math.floor(n%1e8/1e4),r=n%1e4;let s=[];if(e)s.push(e+'억');if(m)s.push(m.toLocaleString('ko-KR')+'만');if(r)s.push(r.toLocaleString('ko-KR'));return (s.join(' ')||'0')+'원'};
+const save=()=>{S('users',users);S('me',me)};
+function toast(m){const t=$('#toast');t.textContent=m;t.classList.add('on');setTimeout(()=>t.classList.remove('on'),2600)}
+function modal(h){$('#mbox').innerHTML='<button class=x aria-label=닫기 onclick=closeM()>✕</button>'+h;$('#modal').classList.add('on')}
+function closeM(){$('#modal').classList.remove('on')}
+$('#modal').onclick=e=>{if(e.target.id=='modal')closeM()};
+
+/* 히어로 슬라이드 */
+let si=0;const sl=[...document.querySelectorAll('.slide')],dt=$('#dots');
+dt.innerHTML=sl.map((_,i)=>`<i onclick="go(${i})"></i>`).join('');
+function go(i){si=(i+sl.length)%sl.length;sl.forEach((s,j)=>s.classList.toggle('on',j==si));[...dt.children].forEach((d,j)=>d.classList.toggle('on',j==si))}
+go(0);setInterval(()=>go(si+1),4500);
+
+/* 화면 그리기 */
+function head(){const u=me&&U();
+$('#acct').innerHTML=u?`<span class=chip>${gr(u).n}</span><a href="#" onclick="myPage();return false">${u.name}님 ${u.points.toLocaleString()}P</a><button class=ghost onclick="logout()">로그아웃</button>`:`<button class=ghost onclick="auth('in')">로그인</button><button class=gold onclick="auth('up')">회원가입</button>`}
+function render(el){if(el){document.querySelectorAll('.tabs button').forEach(b=>b.classList.remove('on'));el.classList.add('on')}
+$('#grid').innerHTML=C.filter(c=>flt=='all'||c.k==flt).map(c=>`<div class=card><img src="img/car-${c.id}.svg" alt="${c.n}"><div class=info><small>${KN[c.k]}</small><h3>${c.n}</h3><small>${c.d}</small><div class=pr>${won(c.p)}부터</div><button class="btn" onclick="detail(${c.id})">상세 보기와 계약</button></div></div>`).join('')}
+function renderGarage(){const u=me&&U(),el=$('#garageList');
+if(!u){el.innerHTML='<p>로그인하면 계약한 차량이 여기에 나와요.</p>';return}
+el.innerHTML=u.cars.length?u.cars.map(k=>{const c=cv(k.id);return `<div class=card><img src="img/car-${k.id}.svg" alt="${c.n}"><div class=info><h3>${c.n}</h3><small>계약번호 ${k.no}</small><br><small>${k.col}</small><button class="gold full" onclick="contract('${k.no}')">전자 계약서 보기</button></div></div>`}).join(''):'<p>아직 계약한 차량이 없어요. 마음에 드는 차량을 계약해 보세요.</p>'}
+
+/* 회원 */
+function auth(m){const i=m=='in';modal(`<h2>${i?'로그인':'회원가입'}</h2>${i?'':'<input id=n placeholder=이름>'}<input id=e type=email placeholder=이메일><input id=p type=password placeholder="비밀번호 (4자 이상)"><button class="btn full" onclick="${i?'login()':'signup()'}">${i?'로그인':'가입하고 100,000P 받기'}</button><p class=sm>${i?'아직 회원이 아니라면 <a href=# onclick="auth(\'up\');return false">회원가입</a>':'이미 회원이라면 <a href=# onclick="auth(\'in\');return false">로그인</a>'}</p>`)}
+const enc=p=>btoa(encodeURIComponent(p));
+function signup(){const n=$('#n').value.trim(),e=$('#e').value.trim().toLowerCase(),p=$('#p').value;
+if(!n||!e.includes('@')||p.length<4)return toast('이름, 이메일, 4자 이상의 비밀번호를 입력해 주세요');
+if(users[e])return toast('이미 가입된 이메일이에요');
+users[e]={name:n,pw:enc(p),points:100000,spent:0,cars:[]};me=e;save();head();renderGarage();closeM();toast('가입 완료! 웰컴 포인트 100,000P가 지급됐어요')}
+function login(){const e=$('#e').value.trim().toLowerCase(),u=users[e];
+if(!u||u.pw!=enc($('#p').value))return toast('이메일 또는 비밀번호가 맞지 않아요');
+me=e;save();head();renderGarage();closeM();toast(u.name+'님, 어서 오세요')}
+function logout(){me=null;use=0;save();head();renderGarage();toast('로그아웃했어요')}
+function myPage(){const u=U(),g=gr(u),nx=G.find(x=>x.m>u.spent);
+modal(`<h2 style="color:var(--navy)">${u.name}님</h2><div class=row><span>등급</span><b>${g.n} (적립 ${g.r}%)</b></div><div class=row><span>보유 포인트</span><b>${u.points.toLocaleString()}P</b></div><div class=row><span>누적 결제액</span><b>${won(u.spent)}</b></div>${nx?`<p class=sm>${nx.n} 등급까지 ${won(nx.m-u.spent)} 남았어요.</p>`:'<p class=sm>최고 등급이에요.</p>'}<h3 style="margin-top:14px">계약 내역</h3>${u.cars.length?u.cars.map(k=>`<div class=row><span>${k.d} ${cv(k.id).n}</span><b>${won(k.dp)}</b></div>`).join(''):'<p class=sm>아직 계약 내역이 없어요.</p>'}`)}
+
+/* 차량 상세, 계약금 결제 */
+const total=()=>cv(cur.id).p+cur.op.reduce((s,i)=>s+O[i].p,0);
+function opts(){return [...document.querySelectorAll('.op:checked')].map(x=>+x.value)}
+function calc(id){const t=cv(id).p+opts().reduce((s,i)=>s+O[i].p,0);$('#tot').textContent=won(t);$('#dp').textContent=won(t*DP)}
+function detail(id){const c=cv(id);
+modal(`<img src="img/car-${id}.svg" alt="${c.n}" style="width:100%;border-radius:10px"><h2 style="margin-top:12px">${c.n}</h2><p>${c.d}</p>
+<label>외장 색상<select id=col>${COL.map(x=>`<option>${x}</option>`).join('')}</select></label>
+<p style="margin-top:10px"><b>옵션</b></p>${O.map((o,i)=>`<label><input type=checkbox class=op value=${i} onchange="calc(${id})"> ${o.n} (+${won(o.p)})</label>`).join('')}
+<div class=row><span>차량 총액</span><b id=tot></b></div><div class=row><span>온라인 계약금 (10%)</span><b id=dp></b></div>
+<button class="btn full" onclick="pay(${id})">계약금 결제하기</button><p class=sm>계약금만 온라인으로 결제하고, 잔금은 출고 전에 딜러와 진행해요.</p>`);calc(id)}
+function pay(id,re){if(!me){toast('결제하려면 로그인해 주세요');return auth('in')}
+if(!re){cur={id,col:$('#col').value,op:opts()};use=0}
+const c=cv(id),t=total(),dp=t*DP,u=U(),mx=Math.min(u.points,dp);use=Math.min(use,mx);const fin=dp-use,r=gr(u).r;
+modal(`<h2>계약금 결제</h2><div class=row><span>${c.n} (${cur.col})</span><b>${won(t)}</b></div><div class=row><span>계약금 (10%)</span><b>${won(dp)}</b></div>
+<div class=row><span>포인트 사용 (보유 ${u.points.toLocaleString()}P)</span><input type=number min=0 max=${mx} value=${use} style="width:130px" onchange="use=Math.min(Math.max(+this.value||0,0),${mx});pay(${id},1)"></div>
+<div class=row><span><b>결제 금액</b></span><b>${won(fin)}</b></div><p class=sm>적립 예정 ${Math.floor(fin*r/100).toLocaleString()}P (적립률 ${r}%)</p>
+<label><input type=radio name=m checked> 신용·체크카드</label><label><input type=radio name=m> 계좌이체</label><label><input type=radio name=m> 간편결제</label>
+<button class="btn full" onclick="done()">${won(fin)} 결제하기</button><p class=sm>데모 사이트라 실제로 결제되지 않아요.</p>`)}
+function done(){const u=U(),g=gr(u),c=cv(cur.id),t=total(),dp=t*DP,fin=dp-use,earn=Math.floor(fin*g.r/100),old=g.n;
+u.points+=earn-use;u.spent+=fin;
+const k={no:'SM'+String(Date.now()).slice(-8),id:c.id,col:cur.col,op:cur.op.map(i=>O[i].n),t,dp,d:new Date().toLocaleDateString('ko-KR')};
+u.cars.unshift(k);use=0;save();head();renderGarage();
+modal(`<h2>계약금 결제가 완료됐어요</h2><p>${c.n} ${won(fin)} 결제, ${earn.toLocaleString()}P 적립</p>${gr(u).n!=old?`<p>등급이 <b>${gr(u).n}</b>로 올랐어요.</p>`:''}<button class="btn full" onclick="contract('${k.no}')">전자 계약서 바로 보기</button>`)}
+function contract(no){const k=U().cars.find(x=>x.no==no),c=cv(k.id);
+modal(`<h2>전자 계약서</h2><div class=row><span>계약번호</span><b>${k.no}</b></div><div class=row><span>계약일</span><b>${k.d}</b></div><div class=row><span>차량</span><b>${c.n}</b></div><div class=row><span>외장 색상</span><b>${k.col}</b></div><div class=row><span>옵션</span><b>${k.op.length?k.op.join(', '):'없음'}</b></div><div class=row><span>차량 총액</span><b>${won(k.t)}</b></div><div class=row><span>계약금</span><b>${won(k.dp)}</b></div><div class=row><span>잔금</span><b>${won(k.t-k.dp)}</b></div><p class=sm>담당 딜러가 영업일 기준 1일 안에 연락해 잔금과 출고 일정을 안내해요. (샘플 계약서예요.)</p>`)}
+
+$('#tiers').innerHTML=G.map(g=>`<div class=tier><small>${g.m?'누적 결제 '+won(g.m)+' 이상':'가입하면 바로'}</small><h3>${g.n}</h3><b>${g.r}%</b><p>결제 금액 적립</p></div>`).join('');
+render();head();renderGarage();
+</script></body></html>
